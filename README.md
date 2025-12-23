@@ -1,66 +1,321 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# E-Commerce API Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based e-commerce API application with authentication and product management features.
 
-## About Laravel
+## 1. Dependencies Used
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### PHP Dependencies (Composer)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Production Dependencies:**
+- `php`: ^8.1
+- `laravel/framework`: ^10.10 - The Laravel framework
+- `laravel/sanctum`: ^3.3 - API authentication using token-based authentication
+- `guzzlehttp/guzzle`: ^7.2 - HTTP client library
+- `laravel/tinker`: ^2.8 - REPL for Laravel
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Development Dependencies:**
+- `fakerphp/faker`: ^1.9.1 - Fake data generator for testing
+- `laravel/pint`: ^1.0 - Laravel's code style fixer
+- `laravel/sail`: ^1.18 - Docker development environment
+- `mockery/mockery`: ^1.4.4 - Mocking framework for testing
+- `nunomaduro/collision`: ^7.0 - Error handler
+- `phpunit/phpunit`: ^10.1 - PHP testing framework
+- `spatie/laravel-ignition`: ^2.0 - Error page handler
 
-## Learning Laravel
+### JavaScript Dependencies (NPM)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Development Dependencies:**
+- `vite`: ^5.0.0 - Next generation frontend build tool
+- `laravel-vite-plugin`: ^1.0.0 - Vite plugin for Laravel
+- `axios`: ^1.6.4 - HTTP client for JavaScript
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 2. How to Run
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prerequisites
+- PHP >= 8.1
+- Composer
+- Node.js and NPM
+- SQLite (included with PHP)
 
-## Laravel Sponsors
+### Installation Steps
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clone the repository** (if applicable) or navigate to the project directory:
+   ```bash
+   cd /home/zuko/ecommerce-app
+   ```
 
-### Premium Partners
+2. **Install PHP dependencies:**
+   ```bash
+   composer install
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+3. **Install JavaScript dependencies:**
+   ```bash
+   npm install
+   ```
 
-## Contributing
+4. **Set up environment file:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Configure database in `.env` file:**
+   ```env
+   DB_CONNECTION=sqlite
 
-## Code of Conduct
+   ```
+   Or use the default path:
+   ```env
+   DB_CONNECTION=sqlite
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. **Run database migrations:**
+   ```bash
+   php artisan migrate
+   ```
 
-## Security Vulnerabilities
+7. **Start the development server:**
+   ```bash
+   npm run dev
+   php artisan serve
+   ```
+   The application will be available at `http://localhost:8000`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8. **Build frontend assets (if needed):**
+   ```bash
+   npm run dev
+   ```
+   Or for production:
+   ```bash
+   npm run build
+   ```
 
-## License
+## 3. Use of Serverless SQLite
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This application uses **SQLite** as the database, which is a serverless, file-based database system. This means:
+
+- **No separate database server required**: SQLite stores data in a single file (`database/database.sqlite`)
+- **Zero configuration**: No need to set up MySQL, PostgreSQL, or any other database server
+- **Perfect for development**: Ideal for local development, testing, and small to medium applications
+- **Portable**: The entire database is contained in one file, making it easy to backup and transfer
+- **Lightweight**: Minimal resource usage compared to traditional database servers
+
+The SQLite database file is located at: `database/database.sqlite`
+
+**Note**: Ensure the database file exists and has proper write permissions. If the file doesn't exist, Laravel will create it automatically when you run migrations.
+
+## 4. How to Run Seeder
+
+The application includes a `ProductSeeder` that generates 50 fake products using the ProductFactory.
+
+### Run the seeder:
+
+```bash
+php artisan db:seed
+```
+
+Or specifically run only the ProductSeeder:
+
+```bash
+php artisan db:seed --class=ProductSeeder
+```
+
+### What the seeder does:
+
+- Creates 50 products with fake data including:
+  - Title
+  - Description
+  - Price
+  - Discount (percentage)
+  - Image URL
+
+### Reset and reseed the database:
+
+If you want to refresh the database and reseed:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+**Warning**: This will drop all tables and recreate them, losing all existing data.
+
+## 5. API Endpoints
+
+All API endpoints are prefixed with `/api`. The base URL is: `http://localhost:8000/api`
+
+### Authentication Endpoints
+
+#### 1. Register User
+- **URL**: `POST /api/register`
+- **Authentication**: Not required
+- **Request Body**:
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"
+  }
+  ```
+- **Validation Rules**:
+  - `name`: required, string, max 255 characters
+  - `email`: required, valid email, max 255 characters, must be unique
+  - `password`: required, string, minimum 8 characters
+- **Response**:
+  ```json
+  {
+    "status": true,
+    "token": "1|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      ...
+    }
+  }
+  ```
+
+#### 2. Login User
+- **URL**: `POST /api/login`
+- **Authentication**: Not required
+- **Request Body**:
+  ```json
+  {
+    "email": "john@example.com",
+    "password": "password123"
+  }
+  ```
+- **Validation Rules**:
+  - `email`: required, valid email
+  - `password`: required
+- **Response** (Success):
+  ```json
+  {
+    "status": true,
+    "token": "2|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      ...
+    }
+  }
+  ```
+- **Response** (Error - 422):
+  ```json
+  {
+    "message": "The provided credentials do not match our records.",
+    "errors": {
+      "email": ["The provided credentials do not match our records."]
+    }
+  }
+  ```
+
+### Protected Endpoints (Require Authentication)
+
+#### 3. Get Authenticated User
+- **URL**: `GET /api/user`
+- **Authentication**: Required (Sanctum token)
+- **Headers**:
+  ```
+  Authorization: Bearer {token}
+  Accept: application/json
+  ```
+- **Response**:
+  ```json
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    ...
+  }
+  ```
+
+### Product Endpoints
+
+#### 4. Get Products List
+- **URL**: `GET /api/products`
+- **Authentication**: Not required
+- **Query Parameters**: None (uses pagination)
+- **Response**:
+  ```json
+  {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "title": "Product Title",
+        "description": "Product description",
+        "price": "99.99",
+        "discount": "10.00",
+        "image_url": "https://example.com/image.jpg",
+        "price_after_discount": 89.99,
+        "created_at": "2024-01-01T00:00:00.000000Z",
+        "updated_at": "2024-01-01T00:00:00.000000Z"
+      },
+      ...
+    ],
+    "first_page_url": "http://localhost:8000/api/products?page=1",
+    "from": 1,
+    "last_page": 5,
+    "last_page_url": "http://localhost:8000/api/products?page=5",
+    "links": [...],
+    "next_page_url": "http://localhost:8000/api/products?page=2",
+    "path": "http://localhost:8000/api/products",
+    "per_page": 10,
+    "prev_page_url": null,
+    "to": 10,
+    "total": 50
+  }
+  ```
+- **Pagination**: Returns 10 products per page by default
+
+## 6. Important Data to Highlight
+
+### Authentication System
+- **Laravel Sanctum** is used for API token authentication
+- Tokens are returned upon successful registration or login
+- Include the token in the `Authorization` header as `Bearer {token}` for protected routes
+- Tokens are stored in the `personal_access_tokens` table
+
+### Product Model Features
+- **Automatic Price Calculation**: The Product model includes a computed attribute `price_after_discount` that automatically calculates the final price after applying the discount percentage
+- **Product Fields**:
+  - `id`: Primary key
+  - `title`: Product name (required)
+  - `description`: Product description (nullable)
+  - `price`: Product price in decimal format (10,2)
+  - `discount`: Discount percentage (5,2) - defaults to 0
+  - `image_url`: Product image URL (nullable)
+  - `created_at` & `updated_at`: Timestamps
+
+### Database Structure
+- **Users Table**: Stores user authentication data
+- **Products Table**: Stores product information
+- **Personal Access Tokens Table**: Stores Sanctum authentication tokens
+- **Password Reset Tokens Table**: For password reset functionality
+- **Failed Jobs Table**: For queue job failures
+
+### API Response Format
+- All API responses return JSON
+- Authentication endpoints include a `status: true` field in successful responses
+- Error responses follow Laravel's validation error format
+
+### Testing
+- The application includes PHPUnit test setup
+- Test files are located in the `tests/` directory
+- Run tests with: `php artisan test` or `vendor/bin/phpunit`
+
+### Development Tools
+- **Laravel Tinker**: Use `php artisan tinker` to interact with the application via REPL
+- **Laravel Pint**: Code style fixer (run with `./vendor/bin/pint`)
+- **Laravel Sail**: Docker development environment (if using Docker)
+
+---
+
+## Additional Notes
+
+- The API uses Laravel's built-in pagination for product listings
+- All timestamps are in UTC format
+- The application follows Laravel 10 conventions and best practices
+- CORS is configured in `config/cors.php` for cross-origin requests
